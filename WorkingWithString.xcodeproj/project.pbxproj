@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		9D7C26492B540C1C001C6D21 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D7C26482B540C1C001C6D21 /* main.cpp */; };
+		9D7C26502B54105A001C6D21 /* validity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D7C264F2B54105A001C6D21 /* validity.cpp */; };
+		9D7C26542B55EFD6001C6D21 /* lambdasFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D7C26522B55EFD6001C6D21 /* lambdasFunction.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +27,10 @@
 /* Begin PBXFileReference section */
 		9D7C26452B540C1C001C6D21 /* WorkingWithString */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = WorkingWithString; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D7C26482B540C1C001C6D21 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		9D7C264F2B54105A001C6D21 /* validity.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = validity.cpp; sourceTree = "<group>"; };
+		9D7C26512B54133E001C6D21 /* validity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = validity.h; sourceTree = "<group>"; };
+		9D7C26522B55EFD6001C6D21 /* lambdasFunction.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = lambdasFunction.cpp; sourceTree = "<group>"; };
+		9D7C26532B55EFD6001C6D21 /* lambdasFunction.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = lambdasFunction.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +47,7 @@
 		9D7C263C2B540C1C001C6D21 = {
 			isa = PBXGroup;
 			children = (
+				9D7C26512B54133E001C6D21 /* validity.h */,
 				9D7C26472B540C1C001C6D21 /* WorkingWithString */,
 				9D7C26462B540C1C001C6D21 /* Products */,
 			);
@@ -58,6 +65,9 @@
 			isa = PBXGroup;
 			children = (
 				9D7C26482B540C1C001C6D21 /* main.cpp */,
+				9D7C264F2B54105A001C6D21 /* validity.cpp */,
+				9D7C26522B55EFD6001C6D21 /* lambdasFunction.cpp */,
+				9D7C26532B55EFD6001C6D21 /* lambdasFunction.hpp */,
 			);
 			path = WorkingWithString;
 			sourceTree = "<group>";
@@ -119,7 +129,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D7C26542B55EFD6001C6D21 /* lambdasFunction.cpp in Sources */,
 				9D7C26492B540C1C001C6D21 /* main.cpp in Sources */,
+				9D7C26502B54105A001C6D21 /* validity.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
