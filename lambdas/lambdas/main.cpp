@@ -9,6 +9,8 @@
 #include <string_view>
 #include <algorithm>
 #include <array>
+#include <functional>
+#include "type_of_lambdas.hpp"
 int main(int argc, const char * argv[]) {
     constexpr std::array<std::string_view, 4> array = {"apple", "banana", "walnut", "lemon"};
     auto found{
@@ -29,5 +31,28 @@ int main(int argc, const char * argv[]) {
     std::array<int, 5> even_array = {2,4,5,6,8};
     bool all_are_even = std::all_of(even_array.begin(), even_array.end(), isEven);
     std::cout << all_are_even << "\n";
+    
+    // A Regular function pointer which only works with empty capture clause
+    std::function addNumbers{
+        [](double a, double b) {
+            return a + b;
+        }
+    };
+    
+    std::cout << addNumbers(3,5) << '\n';
+    auto addNumbers1 = [](double a, double b){
+        return a + b;
+    };
+    
+    std::cout << addNumbers1(45, 34) << '\n';
+    
+    auto lambdas = [](int i) {
+        std::cout << i << '\n';
+    };
+    
+    repeat1(3, lambdas);
+//    repeat2(3, lambdas);
+//    repeat3(3, lambdas);
     return 0;
 }
+
