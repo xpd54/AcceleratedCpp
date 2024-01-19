@@ -10,7 +10,27 @@
 #include <algorithm>
 #include <array>
 #include <functional>
-#include "type_of_lambdas.hpp"
+
+void repeat1(int repetitions, const std::function<void(int)> &fn) {
+    for (int i{0}; i < repetitions; ++i) {
+        fn(i);
+    }
+}
+
+template <typename T>
+void repeat2(int repetitions, const T& fn) {
+    for (int i{0}; i<repetitions; ++i) {
+        fn(i);
+    }
+}
+
+void repeat3(int repetitions, const auto& fn) {
+    for (int i{0}; i < repetitions; ++i) {
+        fn(i);
+    }
+}
+
+
 int main(int argc, const char * argv[]) {
     constexpr std::array<std::string_view, 4> array = {"apple", "banana", "walnut", "lemon"};
     auto found{
@@ -51,8 +71,8 @@ int main(int argc, const char * argv[]) {
     };
     
     repeat1(3, lambdas);
-//    repeat2(3, lambdas);
-//    repeat3(3, lambdas);
+    repeat2(3, lambdas);
+    repeat3(3, lambdas);
     return 0;
 }
 
