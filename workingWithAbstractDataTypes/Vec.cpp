@@ -1,29 +1,48 @@
-template <class T> class Vec {
-public:
-  typedef T *iterator;
-  typedef const T *const_iterator;
-  typedef size_t size_type;
-  typedef T value_type;
+#include "Vec.h"
+#include <algorithm>
+#include <iostream>
+template <class T> void Vec<T>::create() {
+  data = 0;
+  avail = 0;
+  limit = 0;
+}
 
-  Vec(const Vec &v){create(v.begin(), v.end())}; // copy constructor
+template <class T> void Vec<T>::create(size_type n, const T &val) {
+  data = alloc.allocate(n);
+  limit = data + n;
+  avail = data + n;
+  std::uninitialized_fill(data, limit, val);
+}
 
-  Vec() { create(); }
-  explicit Vec(size_type n, constT &val = T()) { create(n, val); }
+template <class T> void Vec<T>::create(const_iterator i, const_iterator j) {
+  data = alloc.allocate(j - i);
+  limit = avail = std::uninitialized_copy(i, j, data);
+}
 
-  size_type size() const { return limit - data; }
+template <class T> void Vec<T>::uncreate() {
+  if (data) {
+    iterator it = avail;
+    while (it != data) {
+      alloc.destroy(--it);
+    }
 
-  T &operator[](size_type i) { return data[i]; }
-  const T &operator[](size_type i) const { return data[i]; }
+    alloc.deallocate(data, limit - data);
+  }
+  data = limit = avail = 0;
+}
 
-  Vec &operator=(const Vec &);
+template <class T> void Vec<T>::grow() {
+  size_type new_size = std::max(2 * (limit - data), std::ptrdiff_t(1));
 
-  iterator begin() { return data; }
-  const_iterator begin() const { return data; }
+  iterator new_data = alloc.allocate(new_size);
+  iterator new_avail = std::uninitialized_copy(data, avail, new_data);
+  uncreate();
 
-  iterator end() { return limit; }
-  const_iterator end() const { return limit; }
+  data = new_data;
+  avail = new_avail;
+  limit = data + new_size;
+}
 
-private:
-  T *data;
-  T *limit;
-};
+template <class T> void Vec<T>::unchecked_append(const T &val) {
+  alloc.construct(avail++, val);
+}
