@@ -1,6 +1,11 @@
 #include "Vec.h"
 #include <algorithm>
 #include <iostream>
+template <class T> Vec<T>::Vec() { create(); }
+
+template <class T> Vec<T>::Vec(size_type n, const T &t) { create(n, t); }
+template <class T> Vec<T>::Vec(const Vec &v) { create(v.begin(), v.end()); }
+
 template <class T> void Vec<T>::create() {
   data = 0;
   avail = 0;
@@ -17,6 +22,24 @@ template <class T> void Vec<T>::create(size_type n, const T &val) {
 template <class T> void Vec<T>::create(const_iterator i, const_iterator j) {
   data = alloc.allocate(j - i);
   limit = avail = std::uninitialized_copy(i, j, data);
+}
+
+template <class T> Vec<T> &Vec<T>::operator=(const Vec &rhs) {
+  // check for self-assignment
+  if (&rhs != this) {
+    // free the array in the left hand side
+    uncreate();
+    // copy elements from the right-hand to left hand side
+    create(rhs.begin(), rhs.end());
+  }
+  return *this;
+}
+
+template <class T> void Vec<T>::push_back(const T &t) {
+  if (avail == limit) {
+    grow();
+  }
+  unchecked_append(t);
 }
 
 template <class T> void Vec<T>::uncreate() {
@@ -46,3 +69,5 @@ template <class T> void Vec<T>::grow() {
 template <class T> void Vec<T>::unchecked_append(const T &val) {
   alloc.construct(avail++, val);
 }
+
+template <class T> Vec<T>::~Vec() { uncreate(); }

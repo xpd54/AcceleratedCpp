@@ -1,0 +1,9 @@
+cmake_minimum_required(VERSION 3.26)
+project(vec)
+set(CMAKE_CXX_STANDARD 17)
+file(GLOB talk_out_src
+    "*.cpp"
+)
+add_executable(${PROJECT_NAME} 
+    ${talk_out_src}
+)

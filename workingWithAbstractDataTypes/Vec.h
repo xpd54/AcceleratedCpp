@@ -6,22 +6,16 @@ public:
   typedef size_t size_type;
   typedef T value_type;
 
-  Vec() { create(); }
-  explicit Vec(size_type n, const T &val = T()) { create(n, val); }
+  Vec();
+  explicit Vec(size_type n, const T &t = T());
 
-  Vec(const Vec &v) { create(v.begin(), v.end()); }; // copy constructor
+  Vec(const Vec &v); // copy constructor
 
   Vec &operator=(const Vec &);
   T &operator[](size_type i) { return data[i]; }
   const T &operator[](size_type i) const { return data[i]; }
 
-  void push_back(const T &t) {
-    if (avail == limit) {
-      grow();
-    }
-
-    unchecked_append(t);
-  }
+  void push_back(const T &t);
 
   size_type size() const { return limit - data; }
 
@@ -31,7 +25,7 @@ public:
   iterator end() { return limit; }
   const_iterator end() const { return limit; }
 
-  ~Vec() { uncreate(); }
+  ~Vec();
 
 private:
   T *data;
