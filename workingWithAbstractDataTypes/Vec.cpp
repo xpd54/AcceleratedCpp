@@ -1,6 +1,7 @@
 #include "Vec.h"
 #include <algorithm>
 #include <iostream>
+#include <string>
 template <class T> Vec<T>::Vec() { create(); }
 
 template <class T> Vec<T>::Vec(size_type n, const T &t) { create(n, t); }
@@ -71,3 +72,12 @@ template <class T> void Vec<T>::unchecked_append(const T &val) {
 }
 
 template <class T> Vec<T>::~Vec() { uncreate(); }
+
+/*
+Can't puth declaration and defination of template class in seperate
+.h and .cpp file. Because while linking compiler don't know if there
+is a function with particuler type.
+https://isocpp.org/wiki/faq/templates#templates-defn-vs-decl
+*/
+template class Vec<int>;
+template class Vec<std::string>;
