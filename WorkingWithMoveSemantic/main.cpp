@@ -6,7 +6,8 @@ private:
   std::string m_data;
 
 public:
-  Article(const std::string &resource) {
+  Article(){};
+  Article(const std::string &resource) : m_data(resource) {
     if (&resource == &m_data) {
       std::cout << "<---Was Moved-->"
                 << "\n";
@@ -38,8 +39,17 @@ public:
   ~Article(){};
 };
 
+std::string getNews() { return std::string("hello how are you?"); }
+
+std::string getEveningNews() {
+  return std::string("Hello how are you this evening?");
+}
+
 int main() {
-  Article news("hello how are you?");
-  Article evening_news("Hello how are you this evening?");
+  std::string hello("hello");
+  Article news(getNews());
+  Article evening_news(getEveningNews());
+  Article *morning_news = new Article(hello);
+  std::cout << morning_news->get_content() << "\n";
   return 0;
 }
