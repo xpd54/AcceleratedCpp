@@ -4,8 +4,8 @@
 #include <sstream>
 #include <string>
 #include <vector>
-
-struct StockData {
+#define INPUT_FILE "YESBANK.csv"
+struct StockTick {
   std::chrono::system_clock::time_point date;
   double close;
   double high;
@@ -68,91 +68,110 @@ struct StockData {
   double BETA;
 };
 
-StockData ParseNextStock(std::ifstream &stock_indata_file) {
-  StockData stock;
-  std::string line;
-  std::getline(stock_indata_file, line);
-
-  if (!stock_indata_file.good()) {
-    return stock; // Return default-initialized StockData if the file has ended
+StockTick getNextStockTick(std::fstream &stock_data_stream) {
+  StockTick minute_stock_tick;
+  std::string minute_tick_input;
+  if (!stock_data_stream.good()) {
+    std::cout << "There is an error reading file stream"
+              << "\n";
+    return minute_stock_tick;
   }
-
-  std::stringstream ss(line);
+  std::getline(stock_data_stream, minute_tick_input);
+  // create a string stream to split on the basis of ','
+  std::istringstream string_stream(minute_tick_input);
+  // read all fields and push into a vector
   std::string field;
   std::vector<std::string> fields;
-
-  while (std::getline(ss, field, ',')) {
+  while (std::getline(string_stream, field, ',')) {
     fields.push_back(field);
   }
-
-  if (fields.size() != 59) {
-    std::cerr << "Unexpected number of fields in the CSV line: "
-              << fields.size() << std::endl;
-    return stock; // Return default-initialized StockData if the line has an
-                  // unexpected format
+  // verify if there are total 60 dimention read in vector
+  if (fields.size() != 60) {
+    std::cout << "Error in fields where it's not correct " << fields.size()
+              << "\n";
+    for (auto &incoming : fields) {
+      std::cout << incoming << "\n";
+    }
+    std::cout << "<------------------------------------------>"
+              << "\n";
+    return minute_stock_tick;
   }
+  std::istringstream tick_value_str(fields[0]);
+  std::tm tm = {};
+  tick_value_str >> std::get_time(&tm, "%Y-%m-%d %H:%M:%S");
+  std::chrono::system_clock::time_point date =
+      std::chrono::system_clock::from_time_t(std::mktime(&tm));
+  minute_stock_tick.date = date;
+  minute_stock_tick.close = std::stod(fields[1]);
+  minute_stock_tick.high = std::stod(fields[2]);
+  minute_stock_tick.low = std::stod(fields[3]);
+  minute_stock_tick.open = std::stod(fields[4]);
+  minute_stock_tick.volume = std::stod(fields[5]);
+  minute_stock_tick.sma5 = std::stod(fields[6]);
+  minute_stock_tick.sma10 = std::stod(fields[7]);
+  minute_stock_tick.sma15 = std::stod(fields[8]);
+  minute_stock_tick.sma20 = std::stod(fields[9]);
+  minute_stock_tick.ema5 = std::stod(fields[10]);
+  minute_stock_tick.ema10 = std::stod(fields[11]);
+  minute_stock_tick.ema15 = std::stod(fields[12]);
+  minute_stock_tick.ema20 = std::stod(fields[13]);
+  minute_stock_tick.upperband = std::stod(fields[14]);
+  minute_stock_tick.middleband = std::stod(fields[15]);
+  minute_stock_tick.lowerband = std::stod(fields[16]);
+  minute_stock_tick.HT_TRENDLINE = std::stod(fields[17]);
+  minute_stock_tick.KAMA10 = std::stod(fields[18]);
+  minute_stock_tick.KAMA20 = std::stod(fields[19]);
+  minute_stock_tick.KAMA30 = std::stod(fields[20]);
+  minute_stock_tick.SAR = std::stod(fields[21]);
+  minute_stock_tick.TRIMA5 = std::stod(fields[22]);
+  minute_stock_tick.TRIMA10 = std::stod(fields[23]);
+  minute_stock_tick.TRIMA20 = std::stod(fields[24]);
+  minute_stock_tick.ADX5 = std::stod(fields[25]);
+  minute_stock_tick.ADX10 = std::stod(fields[26]);
+  minute_stock_tick.ADX20 = std::stod(fields[27]);
+  minute_stock_tick.APO = std::stod(fields[28]);
+  minute_stock_tick.CCI5 = std::stod(fields[29]);
+  minute_stock_tick.CCI10 = std::stod(fields[30]);
+  minute_stock_tick.CCI15 = std::stod(fields[31]);
+  minute_stock_tick.macd510 = std::stod(fields[32]);
+  minute_stock_tick.macd520 = std::stod(fields[33]);
+  minute_stock_tick.macd1020 = std::stod(fields[34]);
+  minute_stock_tick.macd1520 = std::stod(fields[35]);
+  minute_stock_tick.macd1226 = std::stod(fields[36]);
+  minute_stock_tick.MFI = std::stod(fields[37]);
+  minute_stock_tick.MOM10 = std::stod(fields[38]);
+  minute_stock_tick.MOM15 = std::stod(fields[39]);
+  minute_stock_tick.MOM20 = std::stod(fields[40]);
+  minute_stock_tick.ROC5 = std::stod(fields[41]);
+  minute_stock_tick.ROC10 = std::stod(fields[42]);
+  minute_stock_tick.ROC20 = std::stod(fields[43]);
+  minute_stock_tick.PPO = std::stod(fields[44]);
+  minute_stock_tick.RSI14 = std::stod(fields[45]);
+  minute_stock_tick.RSI8 = std::stod(fields[46]);
+  minute_stock_tick.slowk = std::stod(fields[47]);
+  minute_stock_tick.slowd = std::stod(fields[48]);
+  minute_stock_tick.fastk = std::stod(fields[49]);
+  minute_stock_tick.fastd = std::stod(fields[50]);
+  minute_stock_tick.fastksr = std::stod(fields[51]);
+  minute_stock_tick.fastdsr = std::stod(fields[52]);
+  minute_stock_tick.ULTOSC = std::stod(fields[53]);
+  minute_stock_tick.WILLR = std::stod(fields[54]);
+  minute_stock_tick.ATR = std::stod(fields[55]);
+  minute_stock_tick.Trange = std::stod(fields[56]);
+  minute_stock_tick.TYPPRICE = std::stod(fields[57]);
+  minute_stock_tick.HT_DCPERIOD = std::stod(fields[58]);
+  minute_stock_tick.BETA = std::stod(fields[59]);
+  return minute_stock_tick;
+}
 
-  stock.date = std::chrono::system_clock::now(); // Assuming the date is in the
-                                                 // first column
-  stock.close = std::stod(fields[1]);
-  stock.high = std::stod(fields[2]);
-  stock.low = std::stod(fields[3]);
-  stock.open = std::stod(fields[4]);
-  stock.volume = std::stod(fields[5]);
-  stock.sma5 = std::stod(fields[6]);
-  stock.sma10 = std::stod(fields[7]);
-  stock.sma15 = std::stod(fields[8]);
-  stock.sma20 = std::stod(fields[9]);
-  stock.ema5 = std::stod(fields[10]);
-  stock.ema10 = std::stod(fields[11]);
-  stock.ema15 = std::stod(fields[12]);
-  stock.ema20 = std::stod(fields[13]);
-  stock.upperband = std::stod(fields[14]);
-  stock.middleband = std::stod(fields[15]);
-  stock.lowerband = std::stod(fields[16]);
-  stock.HT_TRENDLINE = std::stod(fields[17]);
-  stock.KAMA10 = std::stod(fields[18]);
-  stock.KAMA20 = std::stod(fields[19]);
-  stock.KAMA30 = std::stod(fields[20]);
-  stock.SAR = std::stod(fields[21]);
-  stock.TRIMA5 = std::stod(fields[22]);
-  stock.TRIMA10 = std::stod(fields[23]);
-  stock.TRIMA20 = std::stod(fields[24]);
-  stock.ADX5 = std::stod(fields[25]);
-  stock.ADX10 = std::stod(fields[26]);
-  stock.ADX20 = std::stod(fields[27]);
-  stock.APO = std::stod(fields[28]);
-  stock.CCI5 = std::stod(fields[29]);
-  stock.CCI10 = std::stod(fields[30]);
-  stock.CCI15 = std::stod(fields[31]);
-  stock.macd510 = std::stod(fields[32]);
-  stock.macd520 = std::stod(fields[33]);
-  stock.macd1020 = std::stod(fields[34]);
-  stock.macd1520 = std::stod(fields[35]);
-  stock.macd1226 = std::stod(fields[36]);
-  stock.MFI = std::stod(fields[37]);
-  stock.MOM10 = std::stod(fields[38]);
-  stock.MOM15 = std::stod(fields[39]);
-  stock.MOM20 = std::stod(fields[40]);
-  stock.ROC5 = std::stod(fields[41]);
-  stock.ROC10 = std::stod(fields[42]);
-  stock.ROC20 = std::stod(fields[43]);
-  stock.PPO = std::stod(fields[44]);
-  stock.RSI14 = std::stod(fields[45]);
-  stock.RSI8 = std::stod(fields[46]);
-  stock.slowk = std::stod(fields[47]);
-  stock.slowd = std::stod(fields[48]);
-  stock.fastk = std::stod(fields[49]);
-  stock.fastd = std::stod(fields[50]);
-  stock.fastksr = std::stod(fields[51]);
-  stock.fastdsr = std::stod(fields[52]);
-  stock.ULTOSC = std::stod(fields[53]);
-  stock.WILLR = std::stod(fields[54]);
-  stock.ATR = std::stod(fields[55]);
-  stock.Trange = std::stod(fields[56]);
-  stock.TYPPRICE = std::stod(fields[57]);
-  stock.HT_DCPERIOD = std::stod(fields[58]);
-  stock.BETA = std::stod(fields[59]);
-
-  return stock;
+int main() {
+  std::fstream file;
+  std::string ignore_header;
+  file.open(INPUT_FILE, std::ios::in);
+  std::getline(file, ignore_header);
+  StockTick firstMinute = getNextStockTick(file);
+  std::cout << std::fixed << std::setprecision(16);
+  std::cout << firstMinute.BETA << "\n";
+  file.close();
+  return 0;
 }

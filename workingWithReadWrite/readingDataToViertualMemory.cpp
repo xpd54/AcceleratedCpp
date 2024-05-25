@@ -10,6 +10,7 @@ struct CSVData {
   std::chrono::system_clock::time_point time;
   double value;
   double index;
+  int delta;
 };
 
 int main() {
@@ -21,6 +22,8 @@ int main() {
   double value = 10978.4889L;
   std::cout << std::fixed << std::setprecision(6);
   std::cout << data[0].value << "\n";
+  std::cout << data[0].index << "\n";
+  std::cout << data[0].delta << "\n";
   close(input);
   return 0;
 }
