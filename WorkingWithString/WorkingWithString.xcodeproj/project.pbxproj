@@ -10,6 +10,7 @@
 		9D7C26492B540C1C001C6D21 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D7C26482B540C1C001C6D21 /* main.cpp */; };
 		9D7C26502B54105A001C6D21 /* validity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D7C264F2B54105A001C6D21 /* validity.cpp */; };
 		9D7C26542B55EFD6001C6D21 /* lambdasFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D7C26522B55EFD6001C6D21 /* lambdasFunction.cpp */; };
+		9DFA45AC2C00046400BF9DA8 /* writeAframe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA45AA2C00046400BF9DA8 /* writeAframe.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,6 +32,8 @@
 		9D7C26512B54133E001C6D21 /* validity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = validity.h; sourceTree = "<group>"; };
 		9D7C26522B55EFD6001C6D21 /* lambdasFunction.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = lambdasFunction.cpp; sourceTree = "<group>"; };
 		9D7C26532B55EFD6001C6D21 /* lambdasFunction.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = lambdasFunction.hpp; sourceTree = "<group>"; };
+		9DFA45AA2C00046400BF9DA8 /* writeAframe.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = writeAframe.cpp; sourceTree = "<group>"; };
+		9DFA45AB2C00046400BF9DA8 /* writeAframe.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = writeAframe.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +68,8 @@
 			isa = PBXGroup;
 			children = (
 				9D7C26482B540C1C001C6D21 /* main.cpp */,
+				9DFA45AA2C00046400BF9DA8 /* writeAframe.cpp */,
+				9DFA45AB2C00046400BF9DA8 /* writeAframe.hpp */,
 				9D7C264F2B54105A001C6D21 /* validity.cpp */,
 				9D7C26522B55EFD6001C6D21 /* lambdasFunction.cpp */,
 				9D7C26532B55EFD6001C6D21 /* lambdasFunction.hpp */,
@@ -132,6 +137,7 @@
 				9D7C26542B55EFD6001C6D21 /* lambdasFunction.cpp in Sources */,
 				9D7C26492B540C1C001C6D21 /* main.cpp in Sources */,
 				9D7C26502B54105A001C6D21 /* validity.cpp in Sources */,
+				9DFA45AC2C00046400BF9DA8 /* writeAframe.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
