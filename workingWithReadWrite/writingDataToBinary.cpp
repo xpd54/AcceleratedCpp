@@ -1,10 +1,15 @@
 #include <chrono>
+#include <fcntl.h>
 #include <fstream>
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <sys/mman.h>
+#include <unistd.h>
 #include <vector>
 #define INPUT_FILE "input.csv"
+#define OUT_FILE_PATH "output.dat"
+#define N 9
 struct StockTick {
   std::chrono::system_clock::time_point date;
   double close;
@@ -168,12 +173,25 @@ int main() {
   std::string ignore_header;
   file.open(INPUT_FILE, std::ios::in);
   std::getline(file, ignore_header);
-  StockTick firstMinute = getNextStockTick(file);
-  std::cout << std::fixed << std::setprecision(16);
-  std::cout << "First Minute Date: ";
-  std::time_t time = std::chrono::system_clock::to_time_t(firstMinute.date);
-  std::cout << std::put_time(std::localtime(&time), "%Y-%m-%d %H:%M:%S")
-            << "\n";
+  // StockTick firstMinute = getNextStockTick(file);
+  // std::cout << std::fixed << std::setprecision(16);
+  // std::cout << "First Minute Date: ";
+  // std::time_t time = std::chrono::system_clock::to_time_t(firstMinute.date);
+  // std::cout << std::put_time(std::localtime(&time), "%Y-%m-%d %H:%M:%S")
+  //           << "\n";
+  StockTick sizeOfStockTick;
+  size_t size = sizeof(StockTick[N]);
+  int output = open(OUT_FILE_PATH, O_RDWR | O_CREAT | O_TRUNC, (mode_t)0600);
+  truncate(OUT_FILE_PATH, size);
+  void *points = mmap(nullptr, size, PROT_WRITE, MAP_SHARED, output, 0);
+  StockTick *holders = (StockTick *)points;
+  for (size_t i = 0; i < N; i++) {
+    holders[i] = getNextStockTick(file);
+  }
+
+  close(output);
+  // dealocate point
+  munmap(points, size);
   file.close();
   return 0;
 }
