@@ -4,7 +4,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
-#define INPUT_FILE "YESBANK.csv"
+#define INPUT_FILE "input.csv"
 struct StockTick {
   std::chrono::system_clock::time_point date;
   double close;
@@ -99,9 +99,8 @@ StockTick getNextStockTick(std::fstream &stock_data_stream) {
   std::istringstream tick_value_str(fields[0]);
   std::tm tm = {};
   tick_value_str >> std::get_time(&tm, "%Y-%m-%d %H:%M:%S");
-  std::chrono::system_clock::time_point date =
+  minute_stock_tick.date =
       std::chrono::system_clock::from_time_t(std::mktime(&tm));
-  minute_stock_tick.date = date;
   minute_stock_tick.close = std::stod(fields[1]);
   minute_stock_tick.high = std::stod(fields[2]);
   minute_stock_tick.low = std::stod(fields[3]);
@@ -171,7 +170,10 @@ int main() {
   std::getline(file, ignore_header);
   StockTick firstMinute = getNextStockTick(file);
   std::cout << std::fixed << std::setprecision(16);
-  std::cout << firstMinute.BETA << "\n";
+  std::cout << "First Minute Date: ";
+  std::time_t time = std::chrono::system_clock::to_time_t(firstMinute.date);
+  std::cout << std::put_time(std::localtime(&time), "%Y-%m-%d %H:%M:%S")
+            << "\n";
   file.close();
   return 0;
 }
