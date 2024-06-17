@@ -1,4 +1,3 @@
-#include "Vec.h"
 #include "salesData.h"
 #include <iostream>
 #include <string>
