@@ -26,3 +26,8 @@ std::ostream &print(std::ostream &output_stream, const Sales_data &item) {
   return output_stream;
 }
 
+Sales_data add(const Sales_data &lhs, const Sales_data &rhs) {
+  Sales_data sum = lhs;
+  sum.combine(rhs);
+  return sum;
+}
