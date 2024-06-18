@@ -9,10 +9,11 @@ int main() {
   print(std::cout, default_value) << "\n";
   print(std::cout, cin_vlaue) << "\n";
 */
-  Screen clientScreen;
-  char ch = clientScreen.get();
-  std::cout << ch << "\n";
-  std::cout << "with over loaded " << clientScreen.get(0, 0) << "\n";
-
+  Screen clientScreen(10, 10, 'a');
+  clientScreen.set('#').display(std::cout);
+  std::cout << "\n";
+  const Screen blank(5, 3, '#');
+  blank.display(std::cout);
+  std::cout << "\n";
   return 0;
 }
