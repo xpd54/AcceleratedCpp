@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 class Screen {
+  friend class Window_mgr;
+
 public:
   typedef std::string::size_type pos;
   Screen() = default;
