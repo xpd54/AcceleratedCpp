@@ -13,3 +13,9 @@ private:
   // by default it have one screen
   std::vector<Screen> screens{Screen(24, 80, ' ')};
 };
+
+void Window_mgr::clear(ScreenIndex i) {
+  // s is a reference to the screen we want to clear
+  Screen &s = screens[i];
+  s.contents = std::string(s.height * s.width, ' ');
+}
