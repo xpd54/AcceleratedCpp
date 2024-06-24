@@ -1,6 +1,11 @@
 #pragma once
+
 #include <string>
+// class Window_mgr;
 class Screen {
+
+  // Try enabling only method for friend.
+  //   friend void Window_mgr::clear(ScreenIndex);
   friend class Window_mgr;
 
 public:
@@ -65,4 +70,11 @@ Screen &Screen::set(char c) {
 Screen &Screen::set(pos row, pos column, char c) {
   contents[row * width + column] = c;
   return *this;
+}
+
+#include "window.h"
+void Window_mgr::clear(ScreenIndex i) {
+  // s is a reference to the screen we want to clear
+  Screen &s = screens[i];
+  s.contents = std::string(s.height * s.width, ' ');
 }

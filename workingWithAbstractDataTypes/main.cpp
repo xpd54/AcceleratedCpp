@@ -1,5 +1,5 @@
-#include "salesData.h"
 #include "screen.h"
+#include "window.h"
 #include <iostream>
 #include <string>
 int main() {
@@ -15,5 +15,6 @@ int main() {
   const Screen blank(5, 3, '#');
   blank.display(std::cout);
   std::cout << "\n";
+  Window_mgr window;
   return 0;
 }
