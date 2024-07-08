@@ -13,6 +13,7 @@ public:
 
   void save(Folder &);
   void remove(Folder &);
+  std::string getMessage() { return contents; }
 
 private:
   std::string contents;       // actual message text
