@@ -65,19 +65,23 @@ public:
     std::cout << "i :- " << i << " "
               << "ps :- " << *ps << ". "
               << "psr :- " << ps << "."
+              << "ref count :- " << *use << "."
               << "\n";
   }
 
   // copy assignment operator
   // will point to same string resource but increse the counter;
   HasActPtr &operator=(const HasActPtr &rhs) {
-    std::cout << "reference count before :- " << *rhs.use << " " << *use << "\n";
+    std::cout << "reference count before :- " << *rhs.use << " " << *use
+              << "\n";
     ++*rhs.use;        // right hand side refernece will increase as it's gettin
                        // assigned to another ref; It will get handled (--) when
                        // assigning to left side
     if (--*use == 0) { // this operation decrease a reference count and check
                        // this one same as
                        // int a = --*use; if(a ==0)
+                       // doing self assignment will increase and decrease
+                       // reference counter making it same
       delete ps;
       delete use;
     }
@@ -102,10 +106,13 @@ int main() {
   HasActPtr secondValue;
   HasActPtr thirdValue;
   HasActPtr fourthValue;
+
   secondValue = firstValue;
   thirdValue = firstValue;
+  thirdValue.Print();
   fourthValue = firstValue;
   firstValue = firstValue;
+  thirdValue.Print();
   //   thirdValue.Print();
   //   firstValue.Print();
   //   secondValue.Print();
