@@ -51,6 +51,7 @@ private:
   int i;
   std::size_t *use; // member to keep track of how many object shares *ps
 public:
+  friend void swap(HasActPtr &, HasActPtr &);
   // constructor allocate new string and new counter which is set to 1;
   HasActPtr(const std::string &s = std::string())
       : ps(new std::string(s)), i(0), use(new std::size_t(1)) {}
@@ -100,6 +101,11 @@ public:
     }
   };
 };
+
+inline void swap(HasActPtr &lhs, HasActPtr &rhs) {
+  std::swap(lhs.ps, rhs.ps);
+  std::swap(lhs.i, rhs.i);
+}
 
 int main() {
   HasActPtr firstValue("Hello World");
