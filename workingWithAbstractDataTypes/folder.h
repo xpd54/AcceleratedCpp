@@ -21,6 +21,4 @@ public:
 void Folder::addMsg(Message *message) { messages.insert(message); }
 
 void Folder::remMsg(Message *message) { messages.erase(message); }
-Folder::~Folder() {
-    messages.clear();
-}
+Folder::~Folder() { messages.clear(); }
