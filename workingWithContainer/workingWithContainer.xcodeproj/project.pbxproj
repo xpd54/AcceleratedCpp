@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		410D1F332BA6F13000753E5C /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 410D1F322BA6F13000753E5C /* main.cpp */; };
+		41C605C02C58A8D400593C0C /* container.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41C605BF2C58A8D400593C0C /* container.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,7 +27,7 @@
 		410D1F2F2BA6F13000753E5C /* workingWithContainer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = workingWithContainer; sourceTree = BUILT_PRODUCTS_DIR; };
 		410D1F322BA6F13000753E5C /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		410D1F442BA6F49900753E5C /* split.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = split.h; sourceTree = "<group>"; };
-		410D1F452BA7058D00753E5C /* counting_words.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = counting_words.h; sourceTree = "<group>"; };
+		41C605BF2C58A8D400593C0C /* container.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = container.cpp; sourceTree = "<group>"; };
 		41D06E502BA84AD4000D5ACE /* read_grammer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = read_grammer.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -63,7 +64,7 @@
 				410D1F322BA6F13000753E5C /* main.cpp */,
 				41D06E502BA84AD4000D5ACE /* read_grammer.h */,
 				410D1F442BA6F49900753E5C /* split.h */,
-				410D1F452BA7058D00753E5C /* counting_words.h */,
+				41C605BF2C58A8D400593C0C /* container.cpp */,
 			);
 			path = workingWithContainer;
 			sourceTree = "<group>";
@@ -95,7 +96,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1540;
 				TargetAttributes = {
 					410D1F2E2BA6F13000753E5C = {
 						CreatedOnToolsVersion = 14.3.1;
@@ -126,6 +127,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				410D1F332BA6F13000753E5C /* main.cpp in Sources */,
+				41C605C02C58A8D400593C0C /* container.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,9 +167,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -223,9 +227,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -245,6 +251,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -253,6 +260,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
