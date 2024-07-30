@@ -1,4 +1,5 @@
 #include "StrVec.h"
+#include <cstddef>
 #include <memory>
 std::allocator<std::string> StrVec::alloc;
 
@@ -40,4 +41,23 @@ StrVec &StrVec::operator=(const StrVec &rhs) {
   free();
   first_free = cap = data.second;
   return *this;
+}
+
+void StrVec::reallocate() {
+  // allocate space for twice as many elements as the current size
+  auto newCapacity = size() ? 2 * size() : 1;
+  // allocate new memory
+  auto newData = alloc.allocate(newCapacity);
+  // move data from old to new
+  auto dest = newData;  // points to next free position in new array
+  auto elem = elements; // point to next free position in old array
+  for(size_t i = 0; i != size(); ++i) {
+    alloc.construct(dest++, std::move(*elem++));
+  }
+  free();
+
+  // update our data structure to point to new elements
+  elements = newData;
+  first_free = dest;
+  cap = elements + newCapacity;
 }
